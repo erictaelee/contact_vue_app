@@ -27,13 +27,17 @@
 
     <div v-for="contact in contacts">
      <p> {{ contact.first_name }} </p>
-     <hr>
+     <img v-bind:src="contact.image" />
+     <hr />
     </div>
     
   </div>
 </template>
 
 <style>
+img {
+  width: 250px;
+}
 </style>
 
 <script>
@@ -44,6 +48,11 @@ export default {
     return {
       message: "Welcome to Contacts App!",
       contacts: [],
+      newContactFirstName: "",
+      newContactLastName: "",
+      newContactEmail: "",
+      newContactPhoneNumber: "",
+      newContactImage: "",
     };
   },
   created: function () {
@@ -56,6 +65,19 @@ export default {
         console.log(response.data);
         this.contacts = response.data;
       });
+    },
+    contactsCreate: function () {
+      console.log("contacts create..");
+      // make a post request to the api
+      console.log(this.newContactFirstName);
+      console.log(this.newContactLastName);
+
+      var params = {
+        first_name: this.newContactFirstName,
+        last_name: this.newContactLastName,
+        email: this.newContactEmail,
+        phone_number: this.newContactPhoneNumber,
+      };
     },
   },
 };
